@@ -2,19 +2,25 @@
 
 class A {
 public:
-	int b;
-	A() : b(1) {
-		std::cout << "call default " << __func__ << std::endl;
+	int i;
+	A(int num) {
+		i = num;
 	}
 	A operator++ () {
-		this->b += 1;
+		this->i += 1;
 		return *this;
+	}
+	A operator++ (int) {
+		A copy(*this);
+		++(this->i);
+		return copy;
 	}
 };
 
 int main() {
-	A a;
-	std::cout << a.b << std::endl;
-	++a;
-	std::cout << a.b << std::endl;
+	A a(5);
+	A b(0);
+	b = a++;
+	
+	std::cout << a.i << "  " << b.i << std::endl;
 }
